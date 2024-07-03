@@ -1,0 +1,25 @@
+[versions]
+kotlin = "1.9.20"
+kotlinCoroutines = "1.4.2"
+shadow = "8.1.1"
+paper = "1.21-R0.1-SNAPSHOT"
+creative = "1.7.2"
+
+[libraries]
+kotlinJvm = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
+kotlinTest = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
+kotlinCoroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinCoroutines" }
+paper = { module = "io.papermc.paper:paper-api", version.ref = "paper" }
+
+creativeApi = { module = "team.unnamed:creative-api", version.ref = "creative" }
+creativeSerializer = { module = "team.unnamed:creative-serializer-minecraft", version.ref = "creative" }
+
+[bundles]
+creative = [
+    "creativeApi",
+    "creativeSerializer"
+]
+
+[plugins]
+kotlin = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+shadow = { id = "com.github.johnrengelman.shadow", version.ref = "shadow" }
