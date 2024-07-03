@@ -4,6 +4,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     alias(libs.plugins.shadow)
     alias(libs.plugins.kotlin)
+    `maven-publish`
 }
 
 group = "de.dayeeet.solid"
@@ -37,5 +38,13 @@ tasks.named("shadowJar", ShadowJar::class) {
 
 tasks.test {
     useJUnitPlatform()
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            from(components["java"])
+        }
+    }
 }
 
