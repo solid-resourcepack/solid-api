@@ -5,34 +5,55 @@ import de.dayeeet.solid.mappings.ModelMapper
 import net.kyori.adventure.key.Key
 import team.unnamed.creative.BuiltResourcePack
 import team.unnamed.creative.ResourcePack
+import team.unnamed.creative.base.Writable
 import team.unnamed.creative.model.Model
 import team.unnamed.creative.serialize.minecraft.MinecraftResourcePackWriter
 
 class AdvancedResourcePack(
     val resourcePack: ResourcePack
 ) {
-    inline fun <Config, reified Feature : ResourcePackFeature<Config>> apply(config: Config) {
-        Feature::class.java.getDeclaredConstructor().newInstance().apply(config, resourcePack, this)
+    inline fun <Config, Return, reified Feature : ResourcePackFeature<Config, Return>> apply(config: Config): Return {
+        return Feature::class.java.getDeclaredConstructor().newInstance().apply(config, resourcePack)
     }
 
-    fun modelLink(config: PredicateConfig) {
-        apply<PredicateConfig, PredicateFeature>(config)
+    fun modifiedModel(config: ModelModifierConfig) {
+        return apply<ModelModifierConfig, Unit, ModelModifierFeature>(config)
     }
 
-    fun noteBlockModelLink(vararg keys: Key) {
-        apply<PredicateConfig, PredicateFeature>(NoteBlockPredicateConfig(keys.toList()))
+    fun abstractModel(key: Key, data: Writable) {
+        return modifiedModel(ModelModifierConfig(key, data, ModelModifierFeature.Mappers.ABSTRACT_WRAPPER))
     }
 
-    fun mushroomBlockModelLink(vararg keys: Key) {
-        apply<PredicateConfig, PredicateFeature>(MushroomBlockPredicateConfig(keys.toList()))
+    fun genericModel(key: Key, data: Writable) {
+        return modifiedModel(ModelModifierConfig(key, data, ModelModifierFeature.Mappers.SIMPLE_WRAPPER))
     }
 
-    fun itemModelLink(target: Key, parent: Key?, vararg keys: Key) {
-        apply<PredicateConfig, PredicateFeature>(CustomModelDataPredicateConfig(target = target, parent = parent, models = keys.toList()))
+    fun variantModel(config: ModelVariantConfig): Key {
+        return apply<ModelVariantConfig, Key, ModelVariantFeature>(config)
     }
 
-    fun itemModelLink(target: Key, vararg keys: Key) {
-        apply<PredicateConfig, PredicateFeature>(CustomModelDataPredicateConfig(target = target, parent = Key.key("minecraft", "item/generated"), models = keys.toList()))
+    fun variantModel(target: Key, texture: Key): Key {
+        return apply<ModelVariantConfig, Key, ModelVariantFeature>(ModelVariantConfig(target, texture, null))
+    }
+
+    fun linkModel(config: PredicateConfig) {
+        apply<PredicateConfig, Unit, PredicateFeature>(config)
+    }
+
+    fun linkNoteBlock(vararg keys: Key) {
+        apply<PredicateConfig, Unit, PredicateFeature>(NoteBlockPredicateConfig(keys.toList()))
+    }
+
+    fun linkMushroomBlock(vararg keys: Key) {
+        apply<PredicateConfig, Unit, PredicateFeature>(MushroomBlockPredicateConfig(keys.toList()))
+    }
+
+    fun linkItemModel(target: Key, parent: Key?, vararg keys: Key) {
+        apply<PredicateConfig, Unit, PredicateFeature>(CustomModelDataPredicateConfig(target = target, parent = parent, models = keys.toList()))
+    }
+
+    fun linkItemModel(target: Key, vararg keys: Key) {
+        apply<PredicateConfig, Unit, PredicateFeature>(CustomModelDataPredicateConfig(target = target, parent = Key.key("minecraft", "item/generated"), models = keys.toList()))
     }
 
     fun map(mapper: ModelMapper<*>) {

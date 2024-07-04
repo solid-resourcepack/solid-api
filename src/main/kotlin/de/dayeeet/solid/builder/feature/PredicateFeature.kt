@@ -1,6 +1,5 @@
 package de.dayeeet.solid.builder.feature
 
-import de.dayeeet.solid.builder.AdvancedResourcePack
 import de.dayeeet.solid.builder.ResourcePackFeature
 import de.dayeeet.solid.predicate.PredicateGenerator
 import de.dayeeet.solid.predicate.PredicateIncrementor
@@ -11,8 +10,8 @@ import team.unnamed.creative.model.Model
 import team.unnamed.creative.model.ModelTexture
 import team.unnamed.creative.model.ModelTextures
 
-class PredicateFeature : ResourcePackFeature<PredicateConfig > {
-    override fun apply(config: PredicateConfig , pack: ResourcePack, ref: AdvancedResourcePack) {
+class PredicateFeature : ResourcePackFeature<PredicateConfig, Unit> {
+    override fun apply(config: PredicateConfig, pack: ResourcePack) {
         val model = pack.model(config.target) ?: Model.model().parent(config.parent).key(config.target).textures(
             ModelTextures.builder().layers(
                 ModelTexture.ofKey(config.target)
@@ -62,6 +61,6 @@ class CustomModelDataPredicateConfig(
     override val models: List<Key>,
     override val target: Key,
     override val parent: Key?
-): PredicateConfig() {
+) : PredicateConfig() {
     override val incrementor: PredicateIncrementorType = PredicateIncrementorType.CUSTOM_MODEL_DATA
 }

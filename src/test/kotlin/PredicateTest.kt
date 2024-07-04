@@ -8,7 +8,8 @@ val BOOST_ARROW = Key.key("test", "item/boost_arrow")
 fun main() {
     val pack = AdvancedResourcePack(MinecraftResourcePackReader.minecraft().readFromZipFile(File("test.zip")))
     val mapper = TestMapper()
-    pack.itemModelLink(
+    val fog_1 = pack.variantModel(Key.key("test", "item/fog"), Key.key("test", "item/fog1"))
+    pack.linkItemModel(
         target = Key.key("minecraft", "item/paper"),
         parent = Key.key("minecraft", "item/generated"),
         BOOST_ARROW,
