@@ -47,35 +47,40 @@ publishing {
             from(components["java"])
         }
     }
+}
 
-    centralPortal {
-        name = project.name
+centralPortal {
+    name = project.name
 
-        username = project.findProperty("sonatypeUsername") as? String
-        password = project.findProperty("sonatypePassword") as? String
+    username = project.findProperty("sonatypeUsername") as? String
+    password = project.findProperty("sonatypePassword") as? String
 
-        pom {
-            name.set("Solid")
-            description.set("An API wrapper around unnamed/creative to make custom minecraft items/blocks with java edition resource packs easy for developers")
-            url.set("https://github.com/dayyeeet/solid")
+    pom {
+        name.set("Solid")
+        description.set("An API wrapper around unnamed/creative to make custom minecraft items/blocks with java edition resource packs easy for developers")
+        url.set("https://github.com/dayyeeet/solid")
 
-            developers {
-                developer {
-                    id.set("dayyeeet")
-                    email.set("david@cappell.net")
-                }
-            }
-            licenses {
-                license {
-                    name.set("Apache-2.0")
-                    url.set("https://www.apache.org/licenses/LICENSE-2.0.txt")
-                }
-            }
-            scm {
-                url.set("https://github.com/dayyeeet/solid.git")
-                connection.set("git:git@github.com:dayyeeet/solid.git")
+        developers {
+            developer {
+                id.set("dayyeeet")
+                email.set("david@cappell.net")
             }
         }
+        licenses {
+            license {
+                name.set("Apache-2.0")
+                url.set("https://www.apache.org/licenses/LICENSE-2.0.txt")
+            }
+        }
+        scm {
+            url.set("https://github.com/dayyeeet/solid.git")
+            connection.set("git:git@github.com:dayyeeet/solid.git")
+        }
     }
+}
+
+signing {
+    useGpgCmd()
+    sign(publishing.publications)
 }
 
