@@ -28,7 +28,7 @@ implementation 'io.github.dayyeeet.solid:solid:VERSION'
 To contribute to this project
 1. Check if your feature is not already provided in a pull request or the project,
 2. if it is not, [fork](https://github.com/dayyeeet/solid/fork) the repository,
-3. commit Changes into the fork,
+3. commit changes into the fork,
 4. open a pull request with the [development branch](https://github.com/dayyeeet/solid/tree/development) as base
 
 ## License
