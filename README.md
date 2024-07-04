@@ -23,3 +23,6 @@ implementation 'io.github.dayyeeet.solid:solid:VERSION'
     <version>VERSION</version>
 </dependency>
 ```
+
+## License
+This project is [licensed](LICENSE) under the Apache-2.0 license.
