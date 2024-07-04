@@ -24,11 +24,11 @@ implementation 'io.github.dayyeeet.solid:solid:VERSION'
 </dependency>
 ```
 
-## License
-This project is [licensed](LICENSE) under the Apache-2.0 license.
-
 ## Contributing
 To contribute to this project
 1. [Fork](https://github.com/dayyeeet/solid/fork) the repository
 2. Commit Changes into the fork
 3. Open a pull request
+
+## License
+This project is [licensed](LICENSE) under the Apache-2.0 license.
