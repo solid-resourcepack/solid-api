@@ -4,6 +4,7 @@ kotlinCoroutines = "1.4.2"
 shadow = "8.1.1"
 paper = "1.21-R0.1-SNAPSHOT"
 creative = "1.7.2"
+sonatypeCentralPortalPublisher = "1.2.3"
 
 [libraries]
 kotlinJvm = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
@@ -23,3 +24,4 @@ creative = [
 [plugins]
 kotlin = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 shadow = { id = "com.github.johnrengelman.shadow", version.ref = "shadow" }
+sonatypeCentralPortalPublisher = { id = "net.thebugmc.gradle.sonatype-central-portal-publisher", version.ref = "sonatypeCentralPortalPublisher" }

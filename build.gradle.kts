@@ -4,10 +4,11 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     alias(libs.plugins.shadow)
     alias(libs.plugins.kotlin)
+    alias(libs.plugins.sonatypeCentralPortalPublisher)
     `maven-publish`
 }
 
-group = "de.dayeeet.solid"
+group = "io.github.dayyeeet.solid"
 version = "1.0.0"
 
 repositories {
@@ -44,6 +45,36 @@ publishing {
     publications {
         create<MavenPublication>("maven") {
             from(components["java"])
+        }
+    }
+
+    centralPortal {
+        name = project.name
+
+        username = project.findProperty("sonatypeUsername") as? String
+        password = project.findProperty("sonatypePassword") as? String
+
+        pom {
+            name.set("Solid")
+            description.set("An API wrapper around unnamed/creative to make custom minecraft items/blocks with java edition resource packs easy for developers")
+            url.set("https://github.com/dayyeeet/solid")
+
+            developers {
+                developer {
+                    id.set("dayyeeet")
+                    email.set("david@cappell.net")
+                }
+            }
+            licenses {
+                license {
+                    name.set("Apache-2.0")
+                    url.set("https://www.apache.org/licenses/LICENSE-2.0.txt")
+                }
+            }
+            scm {
+                url.set("https://github.com/dayyeeet/solid.git")
+                connection.set("git:git@github.com:dayyeeet/solid.git")
+            }
         }
     }
 }

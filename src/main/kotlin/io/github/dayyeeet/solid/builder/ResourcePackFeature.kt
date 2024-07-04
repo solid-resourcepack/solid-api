@@ -1,4 +1,4 @@
-package de.dayeeet.solid.builder
+package io.github.dayyeeet.solid.builder
 
 import team.unnamed.creative.ResourcePack
 
