@@ -33,7 +33,7 @@ class AdvancedResourcePack(
     }
 
     fun variantModel(target: Key, texture: Key): Key {
-        return apply<ModelVariantConfig, Key, ModelVariantFeature>(ModelVariantConfig(target, texture, null))
+        return apply<ModelVariantConfig, Key, ModelVariantFeature>(ModelVariantConfig(target, texture, ModelVariantConfig.Textures.simple(texture), mapOf()))
     }
 
     fun linkModel(config: PredicateConfig) {

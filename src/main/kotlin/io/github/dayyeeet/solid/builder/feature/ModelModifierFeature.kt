@@ -11,6 +11,7 @@ class ModelModifierFeature : ResourcePackFeature<ModelModifierConfig, Unit> {
 
     private val gson = Gson()
     override fun apply(config: ModelModifierConfig, pack: ResourcePack) {
+        if(pack.model(config.key) != null) return
         val model = gson.fromJson(config.data.toUTF8String(), JsonObject::class.java)
         val obj = model.get("textures").asJsonObject
         val map = obj.asMap()

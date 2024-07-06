@@ -11,18 +11,26 @@ import team.unnamed.creative.texture.Texture
 
 class ModelVariantFeature : ResourcePackFeature<ModelVariantConfig, Key> {
     override fun apply(config: ModelVariantConfig, pack: ResourcePack): Key {
-        config.textureData?.let { data ->
-            pack.texture(Texture.texture(config.texture, data))
+        config.textureData.forEach { data ->
+            if(pack.texture(data.key) == null)
+            pack.texture(Texture.texture(data.key, data.value))
         }
-        val model = Model.model().key(config.texture).parent(config.target)
-            .textures(ModelTextures.builder().layers(ModelTexture.ofKey(config.texture)).build())
+        val model = Model.model().key(config.key).parent(config.target)
+            .textures(ModelTextures.builder().variables(config.textures).build())
         pack.model(model.build())
-        return config.texture
+        return config.key
     }
 }
 
 data class ModelVariantConfig(
     val target: Key,
-    val texture: Key,
-    val textureData: Writable?
-)
+    val key: Key,
+    val textures: Map<String, ModelTexture>,
+    val textureData: Map<Key, Writable>
+) {
+    object Textures {
+        fun simple(texture: Key): Map<String, ModelTexture> {
+            return mapOf("layer0" to ModelTexture.ofKey(texture))
+        }
+    }
+}
