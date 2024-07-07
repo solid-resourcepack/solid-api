@@ -18,7 +18,7 @@ class ModelModifierFeature : ResourcePackFeature<ModelModifierConfig, Unit> {
         map.keys.forEach { obj.addProperty(it, config.mapper(it)) }
         model.add("textures", obj)
         val modified = Writable.stringUtf8(Gson().toJson(model))
-        pack.unknownFile("assets/${config.key.namespace()}/${config.key.value()}.json", modified)
+        pack.unknownFile("assets/${config.key.namespace()}/models/${config.key.value()}.json", modified)
     }
 
     object Mappers {
