@@ -18,7 +18,7 @@ class PredicateFeature : ResourcePackFeature<PredicateConfig, Unit> {
             ).build()
         ).build()
         val overrides = model.overrides().toList()
-        val incrementor = PredicateIncrementor(config.incrementor.predicates)
+        val incrementor = config.incrementor
         val generator = PredicateGenerator(incrementor)
         model.overrides().clear()
         model.overrides().addAll(generator.generate(overrides, config.models))
@@ -26,41 +26,9 @@ class PredicateFeature : ResourcePackFeature<PredicateConfig, Unit> {
     }
 }
 
-abstract class PredicateConfig {
-    abstract val models: List<Key>
-    abstract val target: Key
-    abstract val parent: Key?
-    abstract val incrementor: PredicateIncrementorType
-}
-
-class NoteBlockPredicateConfig(
-    override val models: List<Key>
-) : PredicateConfig() {
-    override val parent: Key = Key.key("minecraft", "block/cube_all")
-    override val target: Key = Key.key("minecraft", "block/note_block")
-    override val incrementor: PredicateIncrementorType = PredicateIncrementorType.NOTE_BLOCK
-}
-
-class MushroomBlockPredicateConfig(
-    override val models: List<Key>
-) : PredicateConfig() {
-    override val parent: Key = Key.key("minecraft", "block/cube_all")
-    override val target: Key = Key.key("minecraft", "block/mushroom_block")
-    override val incrementor: PredicateIncrementorType = PredicateIncrementorType.MUSHROOM_BLOCK
-}
-
-class ChorusFlowerPredicateConfig(
-    override val models: List<Key>
-) : PredicateConfig() {
-    override val parent: Key = Key.key("minecraft", "block/cube_all")
-    override val target: Key = Key.key("minecraft", "block/chorus_flower")
-    override val incrementor: PredicateIncrementorType = PredicateIncrementorType.CHORUS_FLOWER
-}
-
-class CustomModelDataPredicateConfig(
-    override val models: List<Key>,
-    override val target: Key,
-    override val parent: Key?
-) : PredicateConfig() {
-    override val incrementor: PredicateIncrementorType = PredicateIncrementorType.CUSTOM_MODEL_DATA
-}
+data class PredicateConfig(
+    val models: List<Key>,
+    val target: Key,
+    val parent: Key?,
+    val incrementor: PredicateIncrementor
+)
