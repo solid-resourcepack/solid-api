@@ -1,4 +1,4 @@
-import io.github.dayyeeet.solid.builder.AdvancedResourcePack
+import io.github.solid.resourcepack.api.builder.AdvancedResourcePack
 import net.kyori.adventure.key.Key
 import team.unnamed.creative.ResourcePack
 import team.unnamed.creative.serialize.minecraft.MinecraftResourcePackReader

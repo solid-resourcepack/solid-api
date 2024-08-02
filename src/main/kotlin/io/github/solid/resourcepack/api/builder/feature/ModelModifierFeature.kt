@@ -1,8 +1,8 @@
-package io.github.dayyeeet.solid.builder.feature
+package io.github.solid.resourcepack.api.builder.feature
 
 import com.google.gson.Gson
 import com.google.gson.JsonObject
-import io.github.dayyeeet.solid.builder.ResourcePackFeature
+import io.github.solid.resourcepack.api.builder.ResourcePackFeature
 import net.kyori.adventure.key.Key
 import team.unnamed.creative.ResourcePack
 import team.unnamed.creative.base.Writable

@@ -1,4 +1,4 @@
-import io.github.dayyeeet.solid.mappings.ModelMapper
+import io.github.solid.resourcepack.api.mappings.ModelMapper
 import net.kyori.adventure.key.Key
 import team.unnamed.creative.model.ItemPredicate
 

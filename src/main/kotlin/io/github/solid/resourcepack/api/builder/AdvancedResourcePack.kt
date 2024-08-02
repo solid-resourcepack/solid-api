@@ -1,7 +1,7 @@
-package io.github.dayyeeet.solid.builder
+package io.github.solid.resourcepack.api.builder
 
-import io.github.dayyeeet.solid.builder.feature.*
-import io.github.dayyeeet.solid.mappings.ModelMapper
+import io.github.solid.resourcepack.api.mappings.ModelMapper
+import io.github.solid.resourcepack.api.builder.feature.*
 import net.kyori.adventure.key.Key
 import team.unnamed.creative.BuiltResourcePack
 import team.unnamed.creative.ResourcePack

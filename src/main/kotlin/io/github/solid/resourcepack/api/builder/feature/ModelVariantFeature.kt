@@ -1,6 +1,6 @@
-package io.github.dayyeeet.solid.builder.feature
+package io.github.solid.resourcepack.api.builder.feature
 
-import io.github.dayyeeet.solid.builder.ResourcePackFeature
+import io.github.solid.resourcepack.api.builder.ResourcePackFeature
 import net.kyori.adventure.key.Key
 import team.unnamed.creative.ResourcePack
 import team.unnamed.creative.base.Writable
