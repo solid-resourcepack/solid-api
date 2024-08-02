@@ -8,8 +8,8 @@ plugins {
     `maven-publish`
 }
 
-group = "io.github.dayyeeet.solid"
-version = "1.0.2"
+group = "io.github.solid-resourcepack"
+version = "1.0.4"
 
 repositories {
     mavenCentral()
@@ -58,7 +58,7 @@ centralPortal {
     pom {
         name.set("Solid")
         description.set("An API wrapper around unnamed/creative to make custom minecraft items/blocks with java edition resource packs easy for developers")
-        url.set("https://github.com/dayyeeet/solid")
+        url.set("https://github.com/solid-resourcepack/solid")
 
         developers {
             developer {
@@ -73,8 +73,8 @@ centralPortal {
             }
         }
         scm {
-            url.set("https://github.com/dayyeeet/solid.git")
-            connection.set("git:git@github.com:dayyeeet/solid.git")
+            url.set("https://github.com/solid-resourcepack/solid")
+            connection.set("git:git@github.com:solid-resourcepack/solid.git")
         }
     }
 }

@@ -1,4 +1,4 @@
-package io.github.dayyeeet.solid.predicate
+package io.github.solid.resourcepack.api.predicate
 
 import net.kyori.adventure.key.Key
 import team.unnamed.creative.model.ItemOverride

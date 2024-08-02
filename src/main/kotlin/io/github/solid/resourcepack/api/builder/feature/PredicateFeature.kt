@@ -1,9 +1,9 @@
-package io.github.dayyeeet.solid.builder.feature
+package io.github.solid.resourcepack.api.builder.feature
 
-import io.github.dayyeeet.solid.builder.ResourcePackFeature
-import io.github.dayyeeet.solid.predicate.PredicateGenerator
-import io.github.dayyeeet.solid.predicate.PredicateIncrementor
-import io.github.dayyeeet.solid.predicate.PredicateIncrementorType
+import io.github.solid.resourcepack.api.builder.ResourcePackFeature
+import io.github.solid.resourcepack.api.predicate.PredicateGenerator
+import io.github.solid.resourcepack.api.predicate.PredicateIncrementor
+import io.github.solid.resourcepack.api.predicate.PredicateIncrementorType
 import net.kyori.adventure.key.Key
 import team.unnamed.creative.ResourcePack
 import team.unnamed.creative.model.Model
