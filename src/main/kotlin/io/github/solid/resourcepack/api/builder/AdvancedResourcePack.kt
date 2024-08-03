@@ -15,6 +15,10 @@ class AdvancedResourcePack(
         return Feature::class.java.getDeclaredConstructor().newInstance().apply(config, resourcePack)
     }
 
+    fun apply(config: SolidModelConfig) {
+        apply<SolidModelConfig, Unit, SolidModelFeature>(config)
+    }
+
     fun apply(config: ModelModifierConfig) {
         return apply<ModelModifierConfig, Unit, ModelModifierFeature>(config)
     }

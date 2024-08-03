@@ -12,7 +12,7 @@ object ModelVariant {
         return ModelVariantBuilder().target(target).key(texture).textures(Textures.simple(texture)).build()
     }
     fun simple(target: Key, texture: Texture): ModelVariantConfig {
-        return ModelVariantBuilder().target(target).key(texture.key()).textures(Textures.simple(texture)).build()
+        return ModelVariantBuilder().target(target).key(texture.key()).texturesWithData(Textures.simple(texture)).build()
     }
     fun builder(): ModelVariantBuilder {
         return ModelVariantBuilder()
@@ -56,7 +56,7 @@ class ModelVariantBuilder: ConfigBuilder<ModelVariantConfig> {
         return this
     }
 
-    fun textures(textures: Map<String, Texture>): ModelVariantBuilder {
+    fun texturesWithData(textures: Map<String, Texture>): ModelVariantBuilder {
         this.textures.putAll(textures.map { it.key to ModelTexture.ofKey(it.value.key()) })
         this.textureData.putAll(textures.map { it.value.key() to it.value.data() })
         return this
