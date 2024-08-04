@@ -1,6 +1,7 @@
 package io.github.solid.resourcepack.api.builder.config
 
 import io.github.solid.resourcepack.api.builder.feature.SolidModelConfig
+import io.github.solid.resourcepack.api.material.SolidMaterial
 import io.github.solid.resourcepack.api.predicate.PredicateIncrementor
 import io.github.solid.resourcepack.api.predicate.PredicateIncrementorType
 import net.kyori.adventure.key.Key
@@ -9,22 +10,18 @@ import team.unnamed.creative.texture.Texture
 
 object SolidModel {
 
-    fun itemGenerated(target: Key, vararg textures: Texture): SolidModelConfig {
-        return SolidModelBuilder().target(target).parent(Key.key(Key.MINECRAFT_NAMESPACE, "item/generated"))
-            .variants(textures.toList()).incrementor(PredicateIncrementorType.CUSTOM_MODEL_DATA).build()
-    }
-
-    fun itemHandheld(target: Key, vararg textures: Texture): SolidModelConfig {
-        return SolidModelBuilder().target(target).parent(Key.key(Key.MINECRAFT_NAMESPACE, "item/handheld"))
-            .variants(textures.toList()).incrementor(PredicateIncrementorType.CUSTOM_MODEL_DATA).build()
-    }
-
-    fun itemModel(target: Key, model: Key): SolidModelBuilder {
+    fun itemModel(target: SolidMaterial, model: Key): SolidModelBuilder {
         return SolidModelBuilder().target(target).key(model).incrementor(PredicateIncrementorType.CUSTOM_MODEL_DATA)
     }
 
-    fun itemModel(target: Key, model: Key, writable: Writable): SolidModelBuilder {
-        return SolidModelBuilder().target(target).key(model).data(writable).incrementor(PredicateIncrementorType.CUSTOM_MODEL_DATA)
+    fun itemModel(target: SolidMaterial, model: Key, writable: Writable): SolidModelBuilder {
+        return SolidModelBuilder().target(target).key(model).data(writable)
+            .incrementor(PredicateIncrementorType.CUSTOM_MODEL_DATA)
+    }
+
+    fun itemModel(target: SolidMaterial, vararg textures: Texture): SolidModelBuilder {
+        return SolidModelBuilder().target(target).variants(textures.toList())
+            .incrementor(PredicateIncrementorType.CUSTOM_MODEL_DATA)
     }
 
     fun builder(): SolidModelBuilder {
@@ -35,10 +32,14 @@ object SolidModel {
 
 class SolidModelBuilder : ConfigBuilder<SolidModelConfig> {
 
+    private lateinit var key: Key
     private var writable: Writable? = null
-    private lateinit var target: Key
-    private var parent: Key? = null
-    private var key: Key? = null
+
+    private var target: SolidMaterial? = null
+    private var targetKey: Key? = null
+    private var targetParent: Key? = null
+    private val targetTextures: MutableMap<String, Key> = mutableMapOf()
+
     private val variants = mutableMapOf<Key, Map<String, Texture>>()
     private var mapper: ((String) -> String)? = null
     private lateinit var incrementor: PredicateIncrementor
@@ -53,13 +54,28 @@ class SolidModelBuilder : ConfigBuilder<SolidModelConfig> {
         return this
     }
 
-    fun target(target: Key): SolidModelBuilder {
+    fun target(target: SolidMaterial): SolidModelBuilder {
         this.target = target
         return this
     }
 
-    fun parent(parent: Key): SolidModelBuilder {
-        this.parent = parent
+    fun targetKey(target: Key): SolidModelBuilder {
+        this.targetKey = target
+        return this
+    }
+
+    fun targetParent(parent: Key): SolidModelBuilder {
+        this.targetParent = parent
+        return this
+    }
+
+    fun targetTexture(layer: String, texture: Key): SolidModelBuilder {
+        this.targetTextures[layer] = texture
+        return this
+    }
+
+    fun targetTextures(textures: Map<String, Key>): SolidModelBuilder {
+        this.targetTextures.putAll(textures)
         return this
     }
 
@@ -109,13 +125,15 @@ class SolidModelBuilder : ConfigBuilder<SolidModelConfig> {
     }
 
     override fun build(): SolidModelConfig {
+        if (this.target == null) {
+            this.target = SolidMaterial.from(this.key, this.targetParent, this.targetTextures)
+        }
         return SolidModelConfig(
             writable = writable,
-            target = target,
-            parent = parent,
+            target = target!!,
+            key = key,
             incrementor = incrementor,
             mapper = mapper,
-            key = key,
             variants = variants
         )
     }

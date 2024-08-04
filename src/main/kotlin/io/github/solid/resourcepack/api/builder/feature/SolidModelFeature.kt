@@ -4,6 +4,7 @@ import io.github.solid.resourcepack.api.builder.ResourcePackFeature
 import io.github.solid.resourcepack.api.builder.config.ModelModifier
 import io.github.solid.resourcepack.api.builder.config.ModelVariant
 import io.github.solid.resourcepack.api.builder.config.PredicateFeature
+import io.github.solid.resourcepack.api.material.SolidMaterial
 import io.github.solid.resourcepack.api.predicate.PredicateIncrementor
 import net.kyori.adventure.key.Key
 import team.unnamed.creative.ResourcePack
@@ -12,45 +13,65 @@ import team.unnamed.creative.texture.Texture
 
 class SolidModelFeature : ResourcePackFeature<SolidModelConfig, Unit> {
     override fun apply(config: SolidModelConfig, pack: ResourcePack) {
-        val models = config.key?.let {
-            pack.model(it)
-                ?.let { if (config.variants.isEmpty()) mutableListOf(it.key()) else mutableListOf() }
-        } ?: mutableListOf()
-        if (models.isEmpty()) {
-            if (config.key != null && config.mapper != null && config.writable != null) {
-                val parentKey = Key.key(config.key.namespace(), config.key.value() + "_abstract")
-                ModelModifier.builder().key(parentKey).data(config.writable).mapper(config.mapper).build().let {
-                    ModelModifierFeature().apply(it, pack)
+        var parentKey = config.key
+        val models = pack.model(config.key)?.let { mutableListOf(it.key()) } ?: mutableListOf()
+
+        if (config.mapper != null && config.writable != null) {
+            models.clear()
+            parentKey = Key.key(config.key.namespace(), config.key.value() + "_abstract")
+            ModelModifier.builder().key(parentKey).data(config.writable).mapper(config.mapper).build().let {
+                ModelModifierFeature().apply(it, pack)
+            }
+        } else if (config.writable != null) {
+            pack.unknownFile(
+                "assets/${config.key.namespace()}/models/${config.key.value()}.json", config.writable
+            )
+        }
+
+        if (config.variants.isNotEmpty()) {
+            models.clear()
+            config.variants.forEach { (key, variant) ->
+                ModelVariant.builder().key(key).target(parentKey).texturesWithData(variant).build().let {
+                    ModelVariantFeature().apply(it, pack).let { model -> models.add(model.key()) }
                 }
-                config.variants.forEach { (key, variant) ->
-                    ModelVariant.builder().key(key).target(parentKey).texturesWithData(variant).build().let {
-                        ModelVariantFeature().apply(it, pack).let { model -> models.add(model.key()) }
-                    }
-                }
-            } else if (config.writable != null) {
-                pack.unknownFile(
-                    "assets/${config.target.namespace()}/models/${config.target.value()}.json",
-                    config.writable
-                )
             }
         }
-        val predicateBuilder = PredicateFeature.customModelData()
-            .models(models)
-            .key(config.target)
-            .incrementor(config.incrementor)
-        if (config.parent != null) {
-            predicateBuilder.parent(config.parent)
-        }
+        val predicateBuilder =
+            PredicateFeature.builder().target(config.target).incrementor(config.incrementor).models(models)
         PredicateFeature().apply(predicateBuilder.build(), pack)
     }
 }
 
 data class SolidModelConfig(
+
+    /**
+     * Data in the model to possibly add
+     */
     val writable: Writable?,
-    val target: Key,
-    val key: Key?,
-    val parent: Key?,
+
+    /**
+     * The target minecraft model to apply the changes to
+     */
+    val target: SolidMaterial,
+
+    /**
+     * The key of this model
+     */
+    val key: Key,
+
+    /**
+     * The mapper mapping the textures of
+     */
     val mapper: ((String) -> String)?,
+
+    /**
+     * The incrementor to use for the predicate of the target model
+     */
     val incrementor: PredicateIncrementor,
+
+    /**
+     * The texture variants of this model, also applied on the target model.
+     * If not empty, the key will be treated as an abstract model and not be added to the target model
+     */
     val variants: Map<Key, Map<String, Texture>>
 )
