@@ -3,7 +3,7 @@ package io.github.solid.resourcepack.api.builder.feature
 import io.github.solid.resourcepack.api.builder.ResourcePackFeature
 import io.github.solid.resourcepack.api.builder.config.ModelModifier
 import io.github.solid.resourcepack.api.builder.config.ModelVariant
-import io.github.solid.resourcepack.api.builder.config.PredicateFeature
+import io.github.solid.resourcepack.api.builder.config.Predicate
 import io.github.solid.resourcepack.api.material.SolidMaterial
 import io.github.solid.resourcepack.api.predicate.PredicateIncrementor
 import net.kyori.adventure.key.Key
@@ -37,7 +37,7 @@ class SolidModelFeature : ResourcePackFeature<SolidModelConfig, Unit> {
             }
         }
         val predicateBuilder =
-            PredicateFeature.builder().target(config.target).incrementor(config.incrementor).models(models)
+            Predicate.builder().target(config.target).incrementor(config.incrementor).models(models)
         PredicateFeature().apply(predicateBuilder.build(), pack)
     }
 }

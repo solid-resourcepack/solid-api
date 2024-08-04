@@ -3,6 +3,7 @@ package io.github.solid.resourcepack.api.material
 import net.kyori.adventure.key.Key
 import org.bukkit.Material
 import org.bukkit.block.data.Orientable
+import org.jetbrains.annotations.ApiStatus.Experimental
 
 /**
  * Represents a material that provides all data necessary to be used in a resource pack
@@ -45,7 +46,10 @@ data class SolidMaterial(
         /**
          * Used to create a resource pack material from a Bukkit material
          * @return A [SolidMaterial] or null if the material is not supported
+         * ONLY WORKS WHEN USED IN A MINECRAFT SERVER CONTEXT
          */
+
+        @Experimental
         fun from(material: Material): SolidMaterial? {
             return try {
                 fromUnsafe(material)

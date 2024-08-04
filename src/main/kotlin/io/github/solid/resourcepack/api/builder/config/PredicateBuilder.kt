@@ -8,17 +8,17 @@ import net.kyori.adventure.key.Key
 import org.bukkit.Material
 
 
-object PredicateFeature {
-    fun builder(): PredicateFeatureBuilder {
-        return PredicateFeatureBuilder()
+object Predicate {
+    fun builder(): PredicateBuilder {
+        return PredicateBuilder()
     }
 
-    fun mushroomBlock(): PredicateFeatureBuilder {
+    fun mushroomBlock(): PredicateBuilder {
         return builder().key(Key.key(Key.MINECRAFT_NAMESPACE, "block/mushroom_block"))
             .type(PredicateIncrementorType.MUSHROOM_BLOCK).parent(Key.key(Key.MINECRAFT_NAMESPACE, "block/cube_all"))
     }
 
-    fun chorusFlower(): PredicateFeatureBuilder {
+    fun chorusFlower(): PredicateBuilder {
         return builder().key(Key.key(Key.MINECRAFT_NAMESPACE, "block/chorus_flower"))
             .type(PredicateIncrementorType.CHORUS_FLOWER)
             .parent(Key.key(Key.MINECRAFT_NAMESPACE, "block/template_chorus_flower")).textures(
@@ -26,20 +26,20 @@ object PredicateFeature {
             )
     }
 
-    fun customModelData(material: SolidMaterial): PredicateFeatureBuilder {
+    fun customModelData(material: SolidMaterial): PredicateBuilder {
         return builder().type(PredicateIncrementorType.CUSTOM_MODEL_DATA).target(material)
     }
 
-    fun customModelData(): PredicateFeatureBuilder {
+    fun customModelData(): PredicateBuilder {
         return builder().type(PredicateIncrementorType.CUSTOM_MODEL_DATA)
     }
 
-    fun noteBlock(): PredicateFeatureBuilder {
+    fun noteBlock(): PredicateBuilder {
         return builder().type(PredicateIncrementorType.NOTE_BLOCK).target(SolidMaterial.from(Material.NOTE_BLOCK)!!)
     }
 }
 
-class PredicateFeatureBuilder : ConfigBuilder<PredicateConfig> {
+class PredicateBuilder : ConfigBuilder<PredicateConfig> {
 
     private var target: SolidMaterial? = null
     private val textures = mutableMapOf<String, Key>()
@@ -48,42 +48,42 @@ class PredicateFeatureBuilder : ConfigBuilder<PredicateConfig> {
     private lateinit var incrementor: PredicateIncrementor
     private val models: MutableList<Key> = mutableListOf()
 
-    fun target(target: SolidMaterial): PredicateFeatureBuilder {
+    fun target(target: SolidMaterial): PredicateBuilder {
         this.target = target
         return this
     }
 
-    fun key(key: Key): PredicateFeatureBuilder {
+    fun key(key: Key): PredicateBuilder {
         this.key = key
         return this
     }
 
-    fun textures(textures: Map<String, Key>): PredicateFeatureBuilder {
+    fun textures(textures: Map<String, Key>): PredicateBuilder {
         this.textures.putAll(textures)
         return this
     }
 
-    fun parent(parent: Key): PredicateFeatureBuilder {
+    fun parent(parent: Key): PredicateBuilder {
         this.parent = parent
         return this
     }
 
-    fun type(type: PredicateIncrementorType): PredicateFeatureBuilder {
+    fun type(type: PredicateIncrementorType): PredicateBuilder {
         this.incrementor = PredicateIncrementor(type.predicates)
         return this
     }
 
-    fun incrementor(incrementor: PredicateIncrementor): PredicateFeatureBuilder {
+    fun incrementor(incrementor: PredicateIncrementor): PredicateBuilder {
         this.incrementor = incrementor
         return this
     }
 
-    fun models(vararg models: Key): PredicateFeatureBuilder {
+    fun models(vararg models: Key): PredicateBuilder {
         this.models.addAll(models)
         return this
     }
 
-    fun models(models: Collection<Key>): PredicateFeatureBuilder {
+    fun models(models: Collection<Key>): PredicateBuilder {
         this.models.addAll(models)
         return this
     }
