@@ -16,7 +16,7 @@ fun main() {
             SolidMaterial.from(
                 SolidKey.from(Material.POPPED_CHORUS_FRUIT, KeyType.ITEM),
                 SolidKey.ITEM_GENERATED,
-                ModelVariant.Textures.simple(SolidKey.from(Material.POPPED_CHORUS_FRUIT, KeyType.ITEM))
+                ModelVariant.Textures.generic(SolidKey.from(Material.POPPED_CHORUS_FRUIT, KeyType.ITEM))
             )
         ).models(BOOST_ARROW).build()
     )

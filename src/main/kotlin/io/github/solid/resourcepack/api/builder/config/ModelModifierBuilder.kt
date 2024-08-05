@@ -6,7 +6,7 @@ import team.unnamed.creative.base.Writable
 
 object ModelModifier {
     fun simple(key: Key, data: Writable): ModelModifierConfig {
-        return ModelModifierBuilder().key(key).data(data).mapper(Mapper.SIMPLE_WRAPPER).build()
+        return ModelModifierBuilder().key(key).data(data).mapper(Mapper.GENERIC_WRAPPER).build()
     }
     fun abstract(key: Key, data: Writable): ModelModifierConfig {
         return ModelModifierBuilder().key(key).data(data).mapper(Mapper.ABSTRACT_WRAPPER).build()
@@ -18,7 +18,7 @@ object ModelModifier {
 
     object Mapper {
         val ABSTRACT_WRAPPER: (String) -> String = { key -> "#$key" }
-        val SIMPLE_WRAPPER: (String) -> String = { "#layer0" }
+        val GENERIC_WRAPPER: (String) -> String = { "#layer0" }
     }
 }
 

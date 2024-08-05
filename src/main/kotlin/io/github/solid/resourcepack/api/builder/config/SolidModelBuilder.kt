@@ -81,7 +81,7 @@ class SolidModelBuilder : ConfigBuilder<SolidModelConfig> {
 
     fun variants(vararg textures: Texture): SolidModelBuilder {
 
-        this.variants.putAll(textures.map { Key.key(it.key().namespace(), it.key().value().replace(".png", "")) to ModelVariant.Textures.simple(it) })
+        this.variants.putAll(textures.map { Key.key(it.key().namespace(), it.key().value().replace(".png", "")) to ModelVariant.Textures.generic(it) })
         return this
     }
 
@@ -111,7 +111,7 @@ class SolidModelBuilder : ConfigBuilder<SolidModelConfig> {
     }
 
     fun generic(): SolidModelBuilder {
-        this.mapper = ModelModifier.Mapper.SIMPLE_WRAPPER
+        this.mapper = ModelModifier.Mapper.GENERIC_WRAPPER
         return this
     }
 

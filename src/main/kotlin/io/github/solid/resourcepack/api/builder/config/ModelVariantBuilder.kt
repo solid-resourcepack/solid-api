@@ -8,22 +8,22 @@ import team.unnamed.creative.texture.Texture
 
 
 object ModelVariant {
-    fun simple(target: Key, texture: Key): ModelVariantConfig {
-        return ModelVariantBuilder().target(target).key(texture).textures(Textures.simple(texture)).build()
+    fun generic(target: Key, texture: Key): ModelVariantConfig {
+        return ModelVariantBuilder().target(target).key(texture).textures(Textures.generic(texture)).build()
     }
-    fun simple(target: Key, texture: Texture): ModelVariantConfig {
-        return ModelVariantBuilder().target(target).key(texture.key()).texturesWithData(Textures.simple(texture)).build()
+    fun generic(target: Key, texture: Texture): ModelVariantConfig {
+        return ModelVariantBuilder().target(target).key(texture.key()).texturesWithData(Textures.generic(texture)).build()
     }
     fun builder(): ModelVariantBuilder {
         return ModelVariantBuilder()
     }
 
     object Textures {
-        fun simple(texture: Key): Map<String, Key> {
+        fun generic(texture: Key): Map<String, Key> {
             return mapOf("layer0" to texture)
         }
 
-        fun simple(texture: Texture): Map<String, Texture> {
+        fun generic(texture: Texture): Map<String, Texture> {
             return mapOf("layer0" to texture)
         }
     }
@@ -57,7 +57,7 @@ class ModelVariantBuilder: ConfigBuilder<ModelVariantConfig> {
     }
 
     fun texturesWithData(textures: Map<String, Texture>): ModelVariantBuilder {
-        this.textures.putAll(textures.map { it.key to ModelTexture.ofKey(it.value.key()) })
+        this.textures.putAll(textures.map { it.key to ModelTexture.ofKey(Key.key(it.value.key().namespace(), it.value.key().value().replace(".png", ""))) })
         this.textureData.putAll(textures.map { it.value.key() to it.value.data() })
         return this
     }
