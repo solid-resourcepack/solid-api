@@ -9,12 +9,13 @@ plugins {
 }
 
 group = "io.github.solid-resourcepack"
-version = "1.0.4"
+version = "1.0.5"
 
 repositories {
     mavenCentral()
     mavenLocal()
     maven("https://repo.papermc.io/repository/maven-public/")
+    maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
 }
 
 dependencies {
@@ -39,6 +40,9 @@ tasks.named("shadowJar", ShadowJar::class) {
 
 tasks.test {
     useJUnitPlatform()
+    dependencies {
+        implementation(libs.paper)
+    }
 }
 
 publishing {

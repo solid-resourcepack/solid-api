@@ -27,10 +27,4 @@ data class ModelVariantConfig(
     val key: Key,
     val textures: Map<String, ModelTexture>,
     val textureData: Map<Key, Writable>
-) {
-    object Textures {
-        fun simple(texture: Key): Map<String, ModelTexture> {
-            return mapOf("layer0" to ModelTexture.ofKey(texture))
-        }
-    }
-}
+)
