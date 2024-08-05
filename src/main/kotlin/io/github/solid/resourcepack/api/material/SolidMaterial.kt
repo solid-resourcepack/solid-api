@@ -103,7 +103,7 @@ data class SolidMaterial(
         }
 
         private fun parseItemTexture(material: Material): Map<String, Key> {
-            val key = Key.key(Key.MINECRAFT_NAMESPACE, "block/${material.name.lowercase()}")
+            val key = Key.key(Key.MINECRAFT_NAMESPACE, "item/${material.name.lowercase()}")
             return mapOf("layer0" to key)
         }
 

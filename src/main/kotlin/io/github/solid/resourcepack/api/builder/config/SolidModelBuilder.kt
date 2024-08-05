@@ -20,7 +20,7 @@ object SolidModel {
     }
 
     fun itemModel(target: SolidMaterial, vararg textures: Texture): SolidModelBuilder {
-        return SolidModelBuilder().target(target).variants(textures.toList())
+        return SolidModelBuilder().target(target).variants(*textures)
             .incrementor(PredicateIncrementorType.CUSTOM_MODEL_DATA)
     }
 
@@ -79,13 +79,9 @@ class SolidModelBuilder : ConfigBuilder<SolidModelConfig> {
         return this
     }
 
-    fun variant(texture: Texture): SolidModelBuilder {
-        this.variants[texture.key()] = ModelVariant.Textures.simple(texture)
-        return this
-    }
+    fun variants(vararg textures: Texture): SolidModelBuilder {
 
-    fun variants(textures: List<Texture>): SolidModelBuilder {
-        this.variants.putAll(textures.map { it.key() to ModelVariant.Textures.simple(it) })
+        this.variants.putAll(textures.map { Key.key(it.key().namespace(), it.key().value().replace(".png", "")) to ModelVariant.Textures.simple(it) })
         return this
     }
 
