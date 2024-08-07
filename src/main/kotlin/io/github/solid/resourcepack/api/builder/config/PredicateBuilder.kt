@@ -1,11 +1,11 @@
 package io.github.solid.resourcepack.api.builder.config
 
 import io.github.solid.resourcepack.api.builder.feature.PredicateConfig
-import io.github.solid.resourcepack.api.material.SolidMaterial
 import io.github.solid.resourcepack.api.predicate.PredicateIncrementor
 import io.github.solid.resourcepack.api.predicate.PredicateIncrementorType
+import io.github.solid.resourcepack.material.SolidBlockMaterial
+import io.github.solid.resourcepack.material.SolidMaterial
 import net.kyori.adventure.key.Key
-import org.bukkit.Material
 
 
 object Predicate {
@@ -35,7 +35,7 @@ object Predicate {
     }
 
     fun noteBlock(): PredicateBuilder {
-        return builder().type(PredicateIncrementorType.NOTE_BLOCK).target(SolidMaterial.from(Material.NOTE_BLOCK)!!)
+        return builder().type(PredicateIncrementorType.NOTE_BLOCK).target(SolidBlockMaterial.NOTE_BLOCK.toGeneric())
     }
 }
 
@@ -90,7 +90,7 @@ class PredicateBuilder : ConfigBuilder<PredicateConfig> {
 
     override fun build(): PredicateConfig {
         if (target == null) {
-            target = SolidMaterial.from(key!!, parent, textures)
+            target = SolidMaterial(key!!, parent, textures)
         }
 
         return PredicateConfig(

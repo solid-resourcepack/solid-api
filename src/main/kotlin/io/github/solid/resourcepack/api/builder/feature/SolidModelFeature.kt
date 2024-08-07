@@ -4,8 +4,8 @@ import io.github.solid.resourcepack.api.builder.ResourcePackFeature
 import io.github.solid.resourcepack.api.builder.config.ModelModifier
 import io.github.solid.resourcepack.api.builder.config.ModelVariant
 import io.github.solid.resourcepack.api.builder.config.Predicate
-import io.github.solid.resourcepack.api.material.SolidMaterial
 import io.github.solid.resourcepack.api.predicate.PredicateIncrementor
+import io.github.solid.resourcepack.material.SolidMaterial
 import net.kyori.adventure.key.Key
 import team.unnamed.creative.ResourcePack
 import team.unnamed.creative.base.Writable

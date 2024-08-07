@@ -1,9 +1,9 @@
 package io.github.solid.resourcepack.api.builder.feature
 
 import io.github.solid.resourcepack.api.builder.ResourcePackFeature
-import io.github.solid.resourcepack.api.material.SolidMaterial
 import io.github.solid.resourcepack.api.predicate.PredicateGenerator
 import io.github.solid.resourcepack.api.predicate.PredicateIncrementor
+import io.github.solid.resourcepack.material.SolidMaterial
 import net.kyori.adventure.key.Key
 import team.unnamed.creative.ResourcePack
 import team.unnamed.creative.model.Model
@@ -12,10 +12,10 @@ import team.unnamed.creative.model.ModelTextures
 
 class PredicateFeature : ResourcePackFeature<PredicateConfig, Unit> {
     override fun apply(config: PredicateConfig, pack: ResourcePack) {
-        val model = pack.model(config.target.minecraftKey) ?: Model.model().parent(config.target.minecraftParent)
-            .key(config.target.minecraftKey).textures(
+        val model = pack.model(config.target.key) ?: Model.model().parent(config.target.parent)
+            .key(config.target.key).textures(
             ModelTextures.builder().let {
-                config.target.minecraftTextures.forEach { texture ->
+                config.target.textures.forEach { texture ->
                     it.addVariable(
                         texture.key,
                         ModelTexture.ofKey(texture.value)
