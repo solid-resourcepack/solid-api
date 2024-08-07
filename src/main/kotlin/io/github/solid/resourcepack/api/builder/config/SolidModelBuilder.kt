@@ -1,26 +1,27 @@
 package io.github.solid.resourcepack.api.builder.config
 
 import io.github.solid.resourcepack.api.builder.feature.SolidModelConfig
-import io.github.solid.resourcepack.api.material.SolidMaterial
 import io.github.solid.resourcepack.api.predicate.PredicateIncrementor
 import io.github.solid.resourcepack.api.predicate.PredicateIncrementorType
+import io.github.solid.resourcepack.material.SolidItemMaterial
+import io.github.solid.resourcepack.material.SolidMaterial
 import net.kyori.adventure.key.Key
 import team.unnamed.creative.base.Writable
 import team.unnamed.creative.texture.Texture
 
 object SolidModel {
 
-    fun itemModel(target: SolidMaterial, model: Key): SolidModelBuilder {
-        return SolidModelBuilder().target(target).key(model).incrementor(PredicateIncrementorType.CUSTOM_MODEL_DATA)
+    fun itemModel(target: SolidItemMaterial, model: Key): SolidModelBuilder {
+        return SolidModelBuilder().target(target.toGeneric()).key(model).incrementor(PredicateIncrementorType.CUSTOM_MODEL_DATA)
     }
 
-    fun itemModel(target: SolidMaterial, model: Key, writable: Writable): SolidModelBuilder {
-        return SolidModelBuilder().target(target).key(model).data(writable)
+    fun itemModel(target: SolidItemMaterial, model: Key, writable: Writable): SolidModelBuilder {
+        return SolidModelBuilder().target(target.toGeneric()).key(model).data(writable)
             .incrementor(PredicateIncrementorType.CUSTOM_MODEL_DATA)
     }
 
-    fun itemModel(target: SolidMaterial, vararg textures: Texture): SolidModelBuilder {
-        return SolidModelBuilder().target(target).variants(*textures)
+    fun itemModel(target: SolidItemMaterial, vararg textures: Texture): SolidModelBuilder {
+        return SolidModelBuilder().target(target.toGeneric()).variants(*textures)
             .incrementor(PredicateIncrementorType.CUSTOM_MODEL_DATA)
     }
 
@@ -122,7 +123,7 @@ class SolidModelBuilder : ConfigBuilder<SolidModelConfig> {
 
     override fun build(): SolidModelConfig {
         if (this.target == null) {
-            this.target = SolidMaterial.from(this.key, this.targetParent, this.targetTextures)
+            this.target = SolidMaterial(this.key, this.targetParent, this.targetTextures)
         }
         return SolidModelConfig(
             writable = writable,

@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "io.github.solid-resourcepack"
-version = "1.0.5"
+version = "1.0.6"
 
 repositories {
     mavenCentral()
@@ -22,6 +22,7 @@ dependencies {
     testImplementation(rootProject.libs.kotlinTest)
     implementation(rootProject.libs.kotlinJvm)
     compileOnly(libs.paper)
+    api(libs.soldiMaterial)
     api(libs.bundles.creative)
 }
 
