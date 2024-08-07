@@ -22,6 +22,7 @@ dependencies {
     testImplementation(rootProject.libs.kotlinTest)
     implementation(rootProject.libs.kotlinJvm)
     compileOnly(libs.paper)
+    api(libs.soldiMaterial)
     api(libs.bundles.creative)
 }
 
