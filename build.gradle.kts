@@ -13,7 +13,6 @@ version = "1.0.6"
 
 repositories {
     mavenCentral()
-    mavenLocal()
     maven("https://repo.papermc.io/repository/maven-public/")
     maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
 }
@@ -22,7 +21,7 @@ dependencies {
     testImplementation(rootProject.libs.kotlinTest)
     implementation(rootProject.libs.kotlinJvm)
     compileOnly(libs.paper)
-    api(libs.soldiMaterial)
+    api(libs.solidMaterial)
     api(libs.bundles.creative)
 }
 

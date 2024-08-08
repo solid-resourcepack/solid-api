@@ -15,7 +15,7 @@ paper = { module = "io.papermc.paper:paper-api", version.ref = "paper" }
 
 creativeApi = { module = "team.unnamed:creative-api", version.ref = "creative" }
 creativeSerializer = { module = "team.unnamed:creative-serializer-minecraft", version.ref = "creative" }
-soldiMaterial = { module = "io.github.solid-resourcepack:material-api", version.ref = "solidMaterial" }
+solidMaterial = { module = "io.github.solid-resourcepack:solid-material-api", version.ref = "solidMaterial" }
 
 [bundles]
 creative = [
